@@ -1,0 +1,20 @@
+server:
+  port: 7878
+  servlet:
+    jsp:
+      init-parameters:
+        development: true
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306
+    username: root
+    password: root
+mybatis:
+  mapper-locations: classpath:static/*.xml
+  type-aliases-package: com.githubems.entity
