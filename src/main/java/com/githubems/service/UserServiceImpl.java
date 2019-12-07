@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.UUID;
 
@@ -30,9 +32,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @RequestMapping("regist")
     public void regist(User user) {
         String s = UUID.randomUUID().toString().replaceAll("-", "");
         user.setId(s);
+        String s1 = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        user.setPassword(s1);
         userDao.insert(user);
     }
 }

@@ -18,7 +18,6 @@ import java.util.UUID;
 public class DepartServiceImpl implements DepartService {
     @Autowired
     private DepartDao departDao;
-
     @Override
     public void addDepart(Department department) {
         String s = UUID.randomUUID().toString().replaceAll("-", "");
