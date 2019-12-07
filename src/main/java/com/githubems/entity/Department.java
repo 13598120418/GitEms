@@ -10,17 +10,16 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 
+/**
+ * Created by 康得辉 on 2019/12/7.
+ */
 @Data
-@Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
-public class User implements Serializable{
+@Accessors(chain = true)
+@Table(name = "department")
+public class Department implements Serializable{
     @Id
     private String id;
-    private String username;
-    private String realname;
-    private String password;
-    private String salt;
-    private String sex;
+    private String departname;
 }
