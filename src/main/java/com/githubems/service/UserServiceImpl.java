@@ -24,10 +24,18 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public User Login(User user) {
-        User one = userDao.selectOne(user);
         //判断用户是否存在
-        if(!one.getUsername().equals(user.getUsername())) throw new RuntimeException("用户不存在！");
-        if(!one.getPassword().equals(user.getPassword())) throw new RuntimeException("密码输入错误！");
+        User one1 = userDao.selectOne(new User().setUsername(user.getUsername()));
+        System.out.println(one1);
+        //将密码加盐
+        String s = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        //
+        user.setSalt(s);
+        System.out.println(s);
+        User one = userDao.selectOne(user);
+        System.out.println(one);
+        if(one1==null) throw new RuntimeException("用户不存在！");
+        if(one==null) throw new RuntimeException("密码输入错误！");
         return one;
     }
 
@@ -36,8 +44,6 @@ public class UserServiceImpl implements UserService{
     public void regist(User user) {
         String s = UUID.randomUUID().toString().replaceAll("-", "");
         user.setId(s);
-        String s1 = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
-        user.setPassword(s1);
         userDao.insert(user);
     }
 }
